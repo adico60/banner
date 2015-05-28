@@ -1,0 +1,10 @@
+plugin.tx_banner {
+    settings {
+        # cat=banner; type=string; label=width image
+        width=1400c
+        # cat=banner; type=string; label=height image
+        height=540c
+        # cat=banner; type=int+; label=quality
+        quality=100
+    }
+}

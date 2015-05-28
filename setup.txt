@@ -1,0 +1,84 @@
+page {
+  includeCSS {
+    // Remove the theme of the Introduction Package
+#    theme >
+    bannerBootstrapTheme = {$banner.bootstrap.themes.path}{$banner.bootstrap.themes.theme}/{$banner.bootstrap.themes.file}
+    bannerBootstrapTYPO3 = {$banner.bootstrap.themes.typo3}
+  }
+  includeJSFooterlibs {
+    bannerTop = EXT:banner/Resources/Public/JavaScript/bannertop.js
+    bannerTop.if.isTrue = {$banner.bootstrap.bannerTop}
+  }
+}
+
+lib.pageBgImg=IMG_RESOURCE
+lib.pageBgImg {
+  file {
+    import = {$banner.backgroundImage.path}|
+    import.data = levelmedia: 9, slide
+    treatIdAsReference = 1
+    import.listNum = 0
+  }
+}
+lib.logo = TEXT
+lib.logo.value = <a href="/"><img src="{$banner.logo.file}" /></a>
+
+plugin.banner._CSS_DEFAULT_STYLE (
+#bgImg {
+  background-position: center top;
+/*  background-size: 100%;*/
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0 auto;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  #bgImg {
+    min-height: 180px
+  }
+  #logo{ visibility: hidden}
+}
+@media (min-width: 992px) {
+  #bgImg {
+    min-height: 280px
+  }
+  #logo {
+    visibility: visible;
+  }
+  #logo > a > img {
+    margin: 40px;
+  }
+}
+@media (min-width: 1200px) {
+  #bgImg {
+    min-height: 380px
+  }
+}
+)
+lib.pageBgImg = COA
+lib.pageBgImg {
+  10 = IMG_RESOURCE
+  10.file {
+    import {
+      cObject = TEXT
+      cObject.override {
+        required = 1
+# slide sets.backgroundImage for all the subpages as well,
+# overwritten if subpage has it's own.backgroundImage added
+        data = levelmedia: -1, slide
+        wrap = ${banner.backgroundImage.path}|
+# gets first.backgroundImage from recources list
+        listNum = 0
+      }
+#.backgroundImage manipulation – if 'c' crop is in action
+#.backgroundImages must be bigger than given width and height
+      width = ${banner.backgroundImage.width}
+      height = ${banner.backgroundImage.height}
+      format = ${banner.backgroundImage.format}
+      quality = ${banner.backgroundImage.quality}
+    }
+  }
+}
+
+lib.logo = TEXT
+lib.logo.value = <img src="$[banner.logo.file}" />
